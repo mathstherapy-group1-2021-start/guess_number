@@ -1,0 +1,51 @@
+class Furniture:
+    'Супер класс мебель'
+    def test(self):
+        a = 0
+    def __init__(self, material, price):
+        self.material = "wood"
+        price = 10
+
+class Sleep(Furniture):
+    def __init__(self, material, price, weight, count):
+        self.material = material
+        self.price = price
+        self.weight = weight
+        self.count = count
+
+class Seat(Furniture):
+    def __init__(self, material, price, weight, count):
+        self.material = material
+        self.price = price
+        self.weight = weight
+        self.count = count
+
+class Surfaces(Furniture):
+    def __init__(self, material, price, weight, count):
+        self.material = material
+        self.price = price
+        self.weight = weight
+        self.count = count
+
+class Storage(Furniture):
+    def __init__(self, material, price, weight, count):
+        self.material = material
+        self.price = price
+        self.weight = weight
+        self.count = count
+print("___________________________Заказ_Кроватей___________________________")
+Kolichestvo_KPO6ATEj_V_3AKAZE = int(input("Введите количество крователь, которые хотите переве3ти "))
+# ввод этих данных производится от лица сотрудника компании доставки
+GRUZOPODjeMNOSTb_MASHINI = int(input("Введите грузоподъемность машины(в кроватях) "))
+CTOUMOSTb_PEREVOZA_KPO6ATU = int(input("Введите стоимость перевоза одной кровати на этой машине "))
+
+def STOIMOSTb_PEREVOZA_3AKA3A():
+    STOIMOSTb_PEREVOZA_3AKA3A = CTOUMOSTb_PEREVOZA_KPO6ATU*Kolichestvo_KPO6ATEj_V_3AKAZE
+    return STOIMOSTb_PEREVOZA_3AKA3A
+def VOZMOGNOSTb_IIePEBOZA_3AKA3A():
+    if(Kolichestvo_KPO6ATEj_V_3AKAZE <= GRUZOPODjeMNOSTb_MASHINI):
+        print("Заказ может быть перевезен")
+    else:
+        print("Заказ не может быть перевезен(Кровати слишком много весят)")
+print("Стоимость заказа:",STOIMOSTb_PEREVOZA_3AKA3A())
+VOZMOGNOSTb_IIePEBOZA_3AKA3A()
