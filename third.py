@@ -128,7 +128,7 @@ shapes = [Circle(radius=1), Circle(radius=3), Rect(a=2, b=6), Square(a=3)]
 
 for shape in shapes:
     print("\n")
-    print('area = %s' % shape.area_p)
+    print('area = %s' % shape.area())
     if isinstance(shape, Rect):
         print('perimetr = %s' % shape.perimetr())
 
@@ -146,11 +146,95 @@ print(Square.name())
 # возьмём кошку, собаку, чайку, змею, рыбу
 # базовый класс такой
 #
-# class Animal:
-#   def say(self):
-#     "возвращает строку с звуком животного (напр. мяу, гав)"
-#     pass
 
-#   def move(self):
-#     "возвращает строку со способом передвижения животного (например ползёт, летает)"
-#     pass
+
+class Animal:
+    def say(self):
+        "возвращает строку с звуком животного (напр. мяу, гав)"
+        pass
+
+    def move(self):
+        "возвращает строку со способом передвижения животного (например ползёт, летает)"
+        pass
+
+
+class WalkingAnimal(Animal):
+    def move(self):
+        return "walk"
+
+
+class WalkingDomesticAnimal(WalkingAnimal):
+    def __init__(self, name):
+        self.name = name
+
+
+class Seagull(Animal):
+    def say(self):
+        return "whatever seagull says"
+
+    def move(self):
+        return "fly"
+
+
+class Snake(Animal):
+    def say(self):
+        return "hiss"
+
+    def move(self):
+        return "crawl"
+
+
+class Cat(WalkingDomesticAnimal):
+    def say(self):
+        return "meow"
+
+
+class Dog(WalkingDomesticAnimal):
+    def say(self):
+        return "woof"
+
+
+class Fox(WalkingAnimal):
+    def say(self):
+        return "I\'m hungry"
+
+
+print('\n\n----- animals -----')
+
+# barsik = Cat(name='Barsik')
+# print(barsik.name)
+# print(barsik.say())
+# print(barsik.move())
+
+# murzik = Cat(name='Murzik')
+# print(murzik.name)
+# print(murzik.say())
+# print(murzik.move())
+
+
+# bobik = Dog(name='Bobik')
+# print(bobik.name)
+# print(bobik.say())
+# print(bobik.move())
+
+# barbos = Dog(name='Barbos')
+# print(barbos.name)
+# print(barbos.say())
+# print(barbos.move())
+
+# ludvig = Fox()
+# print(ludvig.say())
+# print(ludvig.move())
+
+animals = [Seagull(), Cat('murzik'), Dog('bobik'), Fox(), Snake()]
+for animal in animals:
+    if (isinstance(animal, WalkingDomesticAnimal)):
+        print(animal.name)
+    print(animal.say())
+    print(animal.move())
+    print('\n')
+
+
+numbers = [1.1, 2.22, 3.333, 4.4444]
+for numer in numbers:
+    print('%s\tmeters' % numer)
