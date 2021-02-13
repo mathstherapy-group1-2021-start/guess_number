@@ -1,35 +1,35 @@
-# Григорий Зубарев
+# Гена
 
-def FlipFlopFunc(a):
-    if(a % 5 != 0 and a % 7 != 0):
-        return a
-    elif(a % 5 == 0 and a % 7 == 0):
+
+def flipflop(n):
+    if n % 5 == 0 and n % 7 == 0:
         return "FlipFlop"
-    elif(a % 5 == 0):
+    if n % 5 == 0:
         return "Flip"
-    else:
+    if n % 7 == 0:
         return "Flop"
-a = int(input('Введите число для проверки функции FlipFlop '))
-print(FlipFlopFunc(a))
 
-print("---***---***---")
+    return "%s" % n
 
-class FlippaFloppa():
+
+class FlippaFloppa:
     def __init__(self, a1, a2):
         self.a1 = a1
         self.a2 = a2
-    # a1 ~ 5     a2 ~ 7
-    def test(self, x, a1, a2):
-        if (x % a1 != 0 and x % a2 != 0):
-            return x
-        elif (x % a1 == 0 and x % a2 == 0):
+
+    def test(self, n):
+        if n % self.a1 == 0 and n % self.a2 == 0:
             return "FlipFlop"
-        elif (x % a1 == 0):
+        if n % self.a1 == 0:
             return "Flip"
-        else:
+        if n % self.a2 == 0:
             return "Flop"
 
-a1 = int(input('Введите а1 '))
-a2 = int(input('Введите а2 '))
-FlippaFloppaTest = FlippaFloppa(a1= a1,a2= a2)
-print(FlippaFloppaTest.test(a, FlippaFloppaTest.a1, FlippaFloppaTest.a2))
+        return "%s" % n
+
+
+print(__name__)
+# ff = FlippaFloppa(a1=3, a2=5)
+# arr = [1, 3, 5, 7, 10, 15, 35, 2]
+# for n in arr:
+#     print("function: %s\nclass: %s" % (flipflop(n), ff.test(n)))
