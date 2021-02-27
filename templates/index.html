@@ -5,54 +5,38 @@
 </head>
 
 <body>
-  <h1>
-    header 1
-  </h1>
+  <center>
+    <h1>
+      Quizz!
+    </h1>
+  </center>
   <h2>
-    header 2
-
+    {{ quiz.name }}
   </h2>
+  <h3>Correct answers: {{correct_answers}}</h3>
+  {% if correct %}
+  <center>
+    <font size="36" color="green">Correct</font>
+  </center>
+  {% endif %}
+  {% if not correct %}
+  <center>
+    <font size="36" color="red">Incorrect</font>
+  </center>
+  {% endif %}
+
   <h3>
-    header 3
+    {{ question.text }}
   </h3>
+
   <h4>
-    header 4
-
+    Answers:
   </h4>
-  <h5>
-    header 5
-
-  </h5>
-  <h6>
-    header 6
-
-  </h6>
   <ol>
-    <li>ordered element 1</li>
-    <li>ordered element 2</li>
-    <li>ordered element 3</li>
-    <li>ordered element 4</li>
-    <li>another ordered element</li>
-    <li>another ordered element</li>
-    <li>another ordered element</li>
-    <li>another ordered element</li>
+    {% for answer in question.answers %}
+    <li><a href="/?n={{n}}&answer_id={{answer.id}}&ca={{correct_answers}}">{{answer.text}}</li>
+    {% endfor %}
   </ol>
-  <ul>
-    <li>unordered element 1</li>
-    <li>unordered element 2</li>
-    <li>unordered element 3</li>
-    <li>unordered element 4</li>
-    <li>another ordered element</li>
-    <li>another ordered element</li>
-    <li>another ordered element</li>
-    <li>another ordered element</li>
-  </ul>
-
-  <img src="/static/nice_cat.webp" width="100" height="200" />
-
-  <font size="36">
-    <center><em>hello</em> <b>from</b> index</center>
-  </font>
 </body>
 
 </html>
