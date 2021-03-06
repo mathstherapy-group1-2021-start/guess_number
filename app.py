@@ -31,24 +31,33 @@ def hello():
     if "ca" in session:
         correct_answers = session["ca"]
 
+    answered_questions = []
+    if "ac" in session:
+        answered_questions = session["ac"]
+
     correct = False
     n = request.args.get("n")
     if n == None:
         n = 0
     n = int(n)
+
     question = quiz.questions[n]
 
     answer_id = request.args.get("answer_id")
     if answer_id != None:
         n = n + 1
-
         correct = question.correct_id == int(answer_id)
-        if correct:
-            correct_answers += 1
-            session["ca"] = correct_answers
+
+        if (n - 1) not in answered_questions:
+            answered_questions.append(n - 1)
+            session["ac"] = answered_questions
+            if correct:
+                correct_answers += 1
+                session["ca"] = correct_answers
 
     if n >= len(quiz.questions):
         session.pop("ca", None)
+        session.pop("ac", None)
 
         return render_template(
             "end.html",
