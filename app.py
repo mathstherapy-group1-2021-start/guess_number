@@ -5,6 +5,11 @@ from data import quiz
 app = Flask(__name__)
 
 
+def clear_session():
+    session.pop("ca", None)
+    session.pop("ac", None)
+
+
 @app.route("/session_test")
 def session_test():
     if "test_key" in session:
@@ -27,8 +32,7 @@ def session_set():
 
 @app.route("/restart")
 def restart():
-    session.pop("ca", None)
-    session.pop("ac", None)
+    clear_session()
     return redirect(url_for("hello"))
 
 
@@ -63,8 +67,7 @@ def hello():
                 session["ca"] = correct_answers
 
     if n >= len(quiz.questions):
-        session.pop("ca", None)
-        session.pop("ac", None)
+        clear_session()
 
         return render_template(
             "end.html",
