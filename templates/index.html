@@ -1,13 +1,13 @@
 <html>
 
 <head>
-  <title>my first html page</title>
+  <title>My super quiz!</title>
 </head>
 
 <body>
   <center>
     <h1>
-      Quizz!
+      Quizz for {{session['username']}}!
     </h1>
   </center>
   <h2>
@@ -40,7 +40,8 @@
     {% endfor %}
   </ol>
   <br />
-  <a href="/restart">Restart</a>
+  <a href="/restart">Restart</a><br />
+  <a href="/logout">Log out</a><br />
 </body>
 
 </html>

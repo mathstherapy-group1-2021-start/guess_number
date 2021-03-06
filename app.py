@@ -30,6 +30,22 @@ def session_set():
     return "generated test_key into session"
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        session["username"] = request.form["username"]
+        return redirect(url_for("hello"))
+
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    clear_session()
+    session.pop("username", None)
+    return redirect(url_for("login"))
+
+
 @app.route("/restart")
 def restart():
     clear_session()
@@ -38,6 +54,9 @@ def restart():
 
 @app.route("/")
 def hello():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
     correct_answers = 0
     if "ca" in session:
         correct_answers = session["ca"]
