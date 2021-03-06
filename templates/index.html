@@ -14,6 +14,7 @@
     {{ quiz.name }}
   </h2>
   <h3>Correct answers: {{correct_answers}}</h3>
+  {% if n > 0 %}
   {% if correct %}
   <center>
     <font size="36" color="green">Correct</font>
@@ -23,6 +24,7 @@
   <center>
     <font size="36" color="red">Incorrect</font>
   </center>
+  {% endif %}
   {% endif %}
 
   <h3>
