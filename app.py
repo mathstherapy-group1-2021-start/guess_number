@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, escape
+from flask import Flask, render_template, request, session, escape, redirect, url_for
 from data import quiz
 
 app = Flask(__name__)
@@ -23,6 +23,13 @@ def session_clean():
 def session_set():
     session["test_key"] = os.urandom(24)
     return "generated test_key into session"
+
+
+@app.route("/restart")
+def restart():
+    session.pop("ca", None)
+    session.pop("ac", None)
+    return redirect(url_for("hello"))
 
 
 @app.route("/")
