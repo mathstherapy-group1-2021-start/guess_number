@@ -13,7 +13,7 @@
   <h2>
     {{ quiz.name }}
   </h2>
-  <h3>Correct answers: {{correct_answers}}</h3>
+  <h3>Correct answers: {{session['ca']}}</h3>
   {% if n > 0 %}
   {% if correct %}
   <center>
@@ -36,7 +36,7 @@
   </h4>
   <ol>
     {% for answer in question.answers %}
-    <li><a href="/?n={{n}}&answer_id={{answer.id}}&ca={{correct_answers}}">{{answer.text}}</li>
+    <li><a href="/?n={{n}}&answer_id={{answer.id}}">{{answer.text}}</li>
     {% endfor %}
   </ol>
 </body>
