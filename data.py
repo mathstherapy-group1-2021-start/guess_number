@@ -5,7 +5,8 @@ class Answer:
 
 
 class Question:
-    def __init__(self, text, answers, correct_id):
+    def __init__(self, id, text, answers, correct_id):
+        self.id = id
         self.text = text
         self.answers = answers
         self.correct_id = correct_id
@@ -21,6 +22,7 @@ quiz = Quiz(
     name="Самая первая викторина!",
     questions=[
         Question(
+            id=1,
             text="question 1",
             correct_id=1,
             answers=[
@@ -31,6 +33,7 @@ quiz = Quiz(
             ],
         ),
         Question(
+            id=2,
             text="question 2",
             correct_id=2,
             answers=[
@@ -41,6 +44,7 @@ quiz = Quiz(
             ],
         ),
         Question(
+            id=3,
             text="question 3",
             correct_id=3,
             answers=[

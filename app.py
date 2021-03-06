@@ -1,5 +1,15 @@
 import os
-from flask import Flask, render_template, request, session, escape, redirect, url_for
+import random
+from flask import (
+    Flask,
+    render_template,
+    request,
+    session,
+    escape,
+    redirect,
+    url_for,
+    abort,
+)
 from data import quiz
 
 app = Flask(__name__)
@@ -8,26 +18,6 @@ app = Flask(__name__)
 def clear_session():
     session.pop("ca", None)
     session.pop("ac", None)
-
-
-@app.route("/session_test")
-def session_test():
-    if "test_key" in session:
-        return "Session test_key: %s" % escape(session["test_key"])
-
-    return "no test_key in session"
-
-
-@app.route("/session_clean")
-def session_clean():
-    session.pop("test_key", None)
-    return "removed test_key from session"
-
-
-@app.route("/session_set")
-def session_set():
-    session["test_key"] = os.urandom(24)
-    return "generated test_key into session"
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -57,6 +47,18 @@ def hello():
     if "username" not in session:
         return redirect(url_for("login"))
 
+    if "current_question" not in session:
+        question = quiz.questions[random.randrange(0, len(quiz.questions) - 1)]
+        session["current_question"] = question.id
+        return render_template(
+            "index.html",
+            quiz_name=quiz.name,
+            question=question,
+            correct=False,
+        )
+
+    current_question = session["current_question"]
+
     correct_answers = 0
     if "ca" in session:
         correct_answers = session["ca"]
@@ -66,26 +68,27 @@ def hello():
         answered_questions = session["ac"]
 
     correct = False
-    n = request.args.get("n")
-    if n == None:
-        n = 0
-    n = int(n)
 
-    question = quiz.questions[n]
+    question = None
+    for q in quiz.questions:
+        if q.id == current_question:
+            question = q
+            break
+
+    if question == None:
+        abort(404)
 
     answer_id = request.args.get("answer_id")
     if answer_id != None:
-        n = n + 1
         correct = question.correct_id == int(answer_id)
-
-        if (n - 1) not in answered_questions:
-            answered_questions.append(n - 1)
+        if question.id not in answered_questions:
+            answered_questions.append(question.id)
             session["ac"] = answered_questions
             if correct:
                 correct_answers += 1
                 session["ca"] = correct_answers
 
-    if n >= len(quiz.questions):
+    if len(answered_questions) == len(quiz.questions):
         clear_session()
 
         return render_template(
@@ -93,13 +96,15 @@ def hello():
             correct_answers=correct_answers,
         )
     else:
-        return render_template(
-            "index.html",
-            quiz=quiz,
-            question=quiz.questions[n],
-            n=n,
-            correct=correct,
-        )
+        for q in random.sample(quiz.questions, len(quiz.questions)):
+            if q.id not in answered_questions:
+                session["current_question"] = q.id
+                return render_template(
+                    "index.html",
+                    quiz_name=quiz.name,
+                    question=q,
+                    correct=correct,
+                )
 
 
 app.secret_key = "A0Zr98j/3yX R~XHH!jmN]LWX/,?RT"
